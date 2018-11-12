@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ "$#" -ne 1 ]; then
-    echo -e "Usage: $0 images_folder"
+if [ "$#" -ne 2 ]; then
+    echo -e "Usage: $0 images_folder image_xml_path"
     exit 1
 fi
 
@@ -18,9 +18,10 @@ count_entries=0
 files=($(find $1 -maxdepth 1 -type f -not -name ".*" | sort))
 count_files=${#files[@]}
 allbulk_file=/tmp/allbulk-$(date +%s)
+image_xml_path=$2
 echo ${BULK_HEADER} > $allbulk_file
-
 echo "Found $count_files file(s)"
+
 echo "--> Bulk Test BEGIN $(date)"
 echo ""
 fileCount=0
@@ -40,7 +41,8 @@ do
         ((warn_count++))
     else
         bulk_file=/tmp/bulk-$d
-        bulk=$(sed -e 's,@@FILE_PATH@@,'"$file"',g' -e 's,@@MIMETYPE@@,'"$type"',g' -e 's,@@DATE_EPOCH@@,'"$d"',g'  ${BULK_TEMPLATE_FILE})
+        base_filename=$(basename $file)
+        bulk=$(sed -e 's,@@FILE_PATH@@,'"${image_xml_path}/${base_filename}"',g' -e 's,@@MIMETYPE@@,'"$type"',g' -e 's,@@DATE_EPOCH@@,'"$d"',g'  ${BULK_TEMPLATE_FILE})
         echo "    -${fileCount}/${count_files}- bulk id=$d file=$file ($(date))"
         echo ${BULK_HEADER} > $bulk_file
         echo $bulk >> $bulk_file        
