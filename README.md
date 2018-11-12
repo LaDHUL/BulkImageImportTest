@@ -1,6 +1,13 @@
 
 # Bash script to test a massing bulk import of images into Knora
 
+0. Clone the project somewhere and move in: 
+
+```shell
+$ git clone https://github.com/LaDHUL/BulkImageImportTest.git
+$ cd BulkImageImportTest
+```
+
 1. Have a running Knora stack (http://localhost:3333) containing the `anything` ontology
 
 2. Prepare a folder containing all image files
@@ -15,7 +22,7 @@
 Launch the test:
 
 ```shell
-$ ./checkImageFolder.sh /tmp/images-import/reforme-geneve/ > log &
+$ ./checkImageFolder.sh {full_path_to_image_folder} > log &
 $ tail -f log
 ```
 
