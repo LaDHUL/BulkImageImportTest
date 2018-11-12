@@ -1,0 +1,4 @@
+<ThingPicture id="id_@@DATE_EPOCH@@">
+    <knoraXmlImport:label>label_@@DATE_EPOCH@@</knoraXmlImport:label>
+    <knoraXmlImport:file path="@@FILE_PATH@@" mimetype="image/@@MIMETYPE@@"></knoraXmlImport:file>
+</ThingPicture>

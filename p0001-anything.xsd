@@ -1,0 +1,135 @@
+<xs:schema 
+vc:minVersion="1.0" targetNamespace="http://api.knora.org/ontology/0001/anything/xml-import/v1#" elementFormDefault="qualified" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:knoraXmlImport="http://api.knora.org/ontology/knoraXmlImport/v1#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://api.knora.org/ontology/0001/anything/xml-import/v1#">
+    <xs:import schemaLocation="knoraXmlImport.xsd" namespace="http://api.knora.org/ontology/knoraXmlImport/v1#"/>
+    <xs:element name="BlueThing">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="knoraXmlImport:resourceType">
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="1" ref="knoraXmlImport:label"/>
+                        <xs:element type="BlueThing_linkValueType" maxOccurs="unbounded" minOccurs="0" name="hasBlueThing"/>
+                        <xs:element type="knoraXmlImport:booleanValueType" maxOccurs="1" minOccurs="0" name="hasBoolean"/>
+                        <xs:element type="knoraXmlImport:colorValueType" maxOccurs="unbounded" minOccurs="0" name="hasColor"/>
+                        <xs:element type="knoraXmlImport:dateValueType" maxOccurs="unbounded" minOccurs="0" name="hasDate"/>
+                        <xs:element type="knoraXmlImport:decimalValueType" maxOccurs="unbounded" minOccurs="0" name="hasDecimal"/>
+                        <xs:element type="knoraXmlImport:geomValueType" maxOccurs="unbounded" minOccurs="0" name="hasGeometry"/>
+                        <xs:element type="knoraXmlImport:geonameValueType" maxOccurs="unbounded" minOccurs="0" name="hasGeoname"/>
+                        <xs:element type="knoraXmlImport:intValueType" maxOccurs="unbounded" minOccurs="0" name="hasInteger"/>
+                        <xs:element type="knoraXmlImport:intervalValueType" maxOccurs="unbounded" minOccurs="0" name="hasInterval"/>
+                        <xs:element type="knoraXmlImport:hlistValueType" maxOccurs="unbounded" minOccurs="0" name="hasListItem"/>
+                        <xs:element type="knoraXmlImport:hlistValueType" maxOccurs="unbounded" minOccurs="0" name="hasOtherListItem"/>
+                        <xs:element type="knoraXmlImport:richtextValueType" maxOccurs="unbounded" minOccurs="0" name="hasRichtext"/>
+                        <xs:element type="knoraXmlImport:richtextValueType" maxOccurs="unbounded" minOccurs="0" name="hasText"/>
+                        <xs:element type="ThingPicture_linkValueType" maxOccurs="unbounded" minOccurs="0" name="hasThingPicture"/>
+                        <xs:element type="knoraXmlImport:uriValueType" maxOccurs="unbounded" minOccurs="0" name="hasUri"/>
+                        <xs:element type="Thing_linkValueType" maxOccurs="unbounded" minOccurs="0" name="isPartOfOtherThing"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="BlueThing_linkValueType">
+        <xs:sequence>
+            <xs:element type="knoraXmlImport:linkValueType" name="BlueThing"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="Thing">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="knoraXmlImport:resourceType">
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="1" ref="knoraXmlImport:label"/>
+                        <xs:element type="knoraXmlImport:booleanValueType" maxOccurs="1" minOccurs="0" name="hasBoolean"/>
+                        <xs:element type="knoraXmlImport:colorValueType" maxOccurs="unbounded" minOccurs="0" name="hasColor"/>
+                        <xs:element type="knoraXmlImport:dateValueType" maxOccurs="unbounded" minOccurs="0" name="hasDate"/>
+                        <xs:element type="knoraXmlImport:decimalValueType" maxOccurs="unbounded" minOccurs="0" name="hasDecimal"/>
+                        <xs:element type="knoraXmlImport:geomValueType" maxOccurs="unbounded" minOccurs="0" name="hasGeometry"/>
+                        <xs:element type="knoraXmlImport:geonameValueType" maxOccurs="unbounded" minOccurs="0" name="hasGeoname"/>
+                        <xs:element type="knoraXmlImport:intValueType" maxOccurs="unbounded" minOccurs="0" name="hasInteger"/>
+                        <xs:element type="knoraXmlImport:intervalValueType" maxOccurs="unbounded" minOccurs="0" name="hasInterval"/>
+                        <xs:element type="knoraXmlImport:hlistValueType" maxOccurs="unbounded" minOccurs="0" name="hasListItem"/>
+                        <xs:element type="knoraXmlImport:hlistValueType" maxOccurs="unbounded" minOccurs="0" name="hasOtherListItem"/>
+                        <xs:element type="Thing_linkValueType" maxOccurs="unbounded" minOccurs="0" name="hasOtherThing"/>
+                        <xs:element type="knoraXmlImport:richtextValueType" maxOccurs="unbounded" minOccurs="0" name="hasRichtext"/>
+                        <xs:element type="knoraXmlImport:richtextValueType" maxOccurs="unbounded" minOccurs="0" name="hasText"/>
+                        <xs:element type="ThingPicture_linkValueType" maxOccurs="unbounded" minOccurs="0" name="hasThingPicture"/>
+                        <xs:element type="knoraXmlImport:uriValueType" maxOccurs="unbounded" minOccurs="0" name="hasUri"/>
+                        <xs:element type="Thing_linkValueType" maxOccurs="unbounded" minOccurs="0" name="isPartOfOtherThing"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="Thing_linkValueType">
+        <xs:sequence>
+            <xs:element type="knoraXmlImport:linkValueType" name="Thing"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="ThingPicture">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="knoraXmlImport:resourceType">
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="1" ref="knoraXmlImport:label"/>
+                        <xs:element maxOccurs="1" minOccurs="1" ref="knoraXmlImport:file"/>
+                        <xs:element type="knoraXmlImport:richtextValueType" maxOccurs="unbounded" minOccurs="0" name="hasPictureTitle"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="ThingPicture_linkValueType">
+        <xs:sequence>
+            <xs:element type="knoraXmlImport:linkValueType" name="ThingPicture"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="ThingWithSeqnum">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="knoraXmlImport:resourceType">
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="1" ref="knoraXmlImport:label"/>
+                        <xs:element type="knoraXmlImport:booleanValueType" maxOccurs="1" minOccurs="0" name="hasBoolean"/>
+                        <xs:element type="knoraXmlImport:colorValueType" maxOccurs="unbounded" minOccurs="0" name="hasColor"/>
+                        <xs:element type="knoraXmlImport:dateValueType" maxOccurs="unbounded" minOccurs="0" name="hasDate"/>
+                        <xs:element type="knoraXmlImport:decimalValueType" maxOccurs="unbounded" minOccurs="0" name="hasDecimal"/>
+                        <xs:element type="knoraXmlImport:geomValueType" maxOccurs="unbounded" minOccurs="0" name="hasGeometry"/>
+                        <xs:element type="knoraXmlImport:geonameValueType" maxOccurs="unbounded" minOccurs="0" name="hasGeoname"/>
+                        <xs:element type="knoraXmlImport:intValueType" maxOccurs="unbounded" minOccurs="0" name="hasInteger"/>
+                        <xs:element type="knoraXmlImport:intervalValueType" maxOccurs="unbounded" minOccurs="0" name="hasInterval"/>
+                        <xs:element type="knoraXmlImport:hlistValueType" maxOccurs="unbounded" minOccurs="0" name="hasListItem"/>
+                        <xs:element type="knoraXmlImport:hlistValueType" maxOccurs="unbounded" minOccurs="0" name="hasOtherListItem"/>
+                        <xs:element type="Thing_linkValueType" maxOccurs="unbounded" minOccurs="0" name="hasOtherThing"/>
+                        <xs:element type="knoraXmlImport:richtextValueType" maxOccurs="unbounded" minOccurs="0" name="hasRichtext"/>
+                        <xs:element type="knoraXmlImport:richtextValueType" maxOccurs="unbounded" minOccurs="0" name="hasText"/>
+                        <xs:element type="ThingPicture_linkValueType" maxOccurs="unbounded" minOccurs="0" name="hasThingPicture"/>
+                        <xs:element type="knoraXmlImport:uriValueType" maxOccurs="unbounded" minOccurs="0" name="hasUri"/>
+                        <xs:element type="Thing_linkValueType" maxOccurs="unbounded" minOccurs="0" name="isPartOfOtherThing"/>
+                        <xs:element type="knoraXmlImport:intValueType" maxOccurs="unbounded" minOccurs="0" name="knoraXmlImport__seqnum"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="ThingWithSeqnum_linkValueType">
+        <xs:sequence>
+            <xs:element type="knoraXmlImport:linkValueType" name="ThingWithSeqnum"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="TrivialThing">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="knoraXmlImport:resourceType">
+                    <xs:sequence>
+                        <xs:element maxOccurs="1" minOccurs="1" ref="knoraXmlImport:label"/>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="TrivialThing_linkValueType">
+        <xs:sequence>
+            <xs:element type="knoraXmlImport:linkValueType" name="TrivialThing"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
