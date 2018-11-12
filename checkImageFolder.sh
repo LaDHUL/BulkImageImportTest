@@ -59,8 +59,10 @@ do
             ((count_entries++))
             echo "    ### SUCCESS $file"
         fi
-        echo ""    
+        echo ""
         \rm $bulk_file
+        # wait 1s to avoid id collision based on seconds from epoch
+        sleep 1
     fi
 done
 echo ""
