@@ -83,10 +83,10 @@ echo ${BULK_FOOTER} >> $allbulk_file
 response=$(curl -s -u root@example.com:test -X POST -d @$allbulk_file http://localhost:3333/v1/resources/xmlimport/http%3A%2F%2Frdfh.ch%2Fprojects%2F0001)
 if [[ $response =~ .*error.* ]]; then
   echo ""
-  echo "    ### ERROR $allbulk_file"
+  echo "    ### ERROR full bulk import: $allbulk_file"
   echo "    $response"
 else
-  echo "    ### SUCCESS $allbulk_file"
+  echo "    ### SUCCESS full bulk import: $allbulk_file"
   \rm $allbulk_file
 fi
 echo ""
