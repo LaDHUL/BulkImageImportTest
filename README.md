@@ -24,7 +24,7 @@ Launch the test:
 - `image_xml_path`: image full path required in the xml file (depending on your Sipi installation)
 
 ```shell
-./checkImageFolder.sh {full_path_to_image_folder} {xml} > log &
+./checkImageFolder.sh {full_path_to_image_folder} {image_xml_path} > log &
 tail -f log
 ```
 
