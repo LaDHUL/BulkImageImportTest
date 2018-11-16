@@ -49,7 +49,7 @@ do
         echo $bulk >> $allbulk_file        
         echo ${BULK_FOOTER} >> $bulk_file
         response=$(curl -s -u ${KNORA_USER} -X POST -d @$bulk_file ${KNORA_BULK_ENDPOINT}http%3A%2F%2Frdfh.ch%2Fprojects%2F0001)
-        if [[ $response =~ .*error.* ]]; then
+        if [[ $response == "" ]] || [[ $response =~ .*error.* ]] ; then
             echo ""
             echo "    "$(cat $bulk_file)
             echo "    ### ERROR $file"
