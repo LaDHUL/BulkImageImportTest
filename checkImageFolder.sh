@@ -1,14 +1,16 @@
 #!/bin/bash
 
+: ${KNORA_BULK_ENDPOINT:=http://localhost:3333/v1/resources/xmlimport/}
+: ${KNORA_USER:=root@example.com:test}
+
 if [ "$#" -ne 2 ]; then
     echo -e "Usage: $0 images_folder image_xml_path"
+    echo "KNORA_BULK_ENDPOINT=$KNORA_BULK_ENDPOINT"
+    echo "KNORA_USER=$KNORA_USER"
     echo "to set new BULK_ENDPOINT:"
     echo 'export KNORA_BULK_ENDPOINT="https://knora-nv.unil.ch/v1/resources/xmlimport/"'
     exit 1
 fi
-
-: ${KNORA_BULK_ENDPOINT:=http://localhost:3333/v1/resources/xmlimport/}
-: ${KNORA_USER:=root@example.com:test}
 
 echo "KNORA_BULK_ENDPOINT=$KNORA_BULK_ENDPOINT"
 echo "KNORA_USER=$KNORA_USER"
@@ -53,7 +55,9 @@ do
         echo $bulk >> $bulk_file        
         echo $bulk >> $allbulk_file        
         echo ${BULK_FOOTER} >> $bulk_file
-        response=$(curl -k -s -u ${KNORA_USER} -X POST -d @$bulk_file ${KNORA_BULK_ENDPOINT}http%3A%2F%2Frdfh.ch%2Fprojects%2F0001)
+        cmd="curl -k -s -u ${KNORA_USER} -X POST -d @$bulk_file ${KNORA_BULK_ENDPOINT}http%3A%2F%2Frdfh.ch%2Fprojects%2F0001"
+        echo "      CMD: $cmd"
+        response=$($cmd)
         if [[ $response =~ .*createdResources.* ]] ; then
             ((count_entries++))
             echo "    ### SUCCESS $file"
@@ -85,12 +89,12 @@ else
     echo "#### NO ERROR FOUND"
 fi
 
-echo "wait 30s to let the stack have some fresh air before fll bulk :)"
-sleep 30
 echo ""
 echo "--> full bulk with ${count_entries} entries - file=$allbulk_file ($(date))"
 echo ${BULK_FOOTER} >> $allbulk_file
-response=$(curl -s -u root@example.com:test -X POST -d @$allbulk_file http://localhost:3333/v1/resources/xmlimport/http%3A%2F%2Frdfh.ch%2Fprojects%2F0001)
+cmd="curl -k -s -u ${KNORA_USER} -X POST -d @$allbulk_file ${KNORA_BULK_ENDPOINT}http%3A%2F%2Frdfh.ch%2Fprojects%2F0001"
+echo " CMD: $cmd"
+response=$($cmd)
 if [[ $response =~ .*createdResources.* ]] ; then
   echo "    ### SUCCESS full bulk import: $allbulk_file"
 else
