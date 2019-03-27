@@ -3,13 +3,18 @@
 : ${KNORA_BULK_ENDPOINT:=http://localhost:3333/v1/resources/xmlimport/}
 : ${KNORA_USER:=root@example.com:test}
 
-if [ "$#" -ne 2 ]; then
-    echo -e "Usage: $0 images_folder image_xml_path"
+if [ "$#" -lt 2 ]; then
+    echo -e "Usage: $0 images_folder image_xml_path [no_full_bulk]"
     echo "KNORA_BULK_ENDPOINT=$KNORA_BULK_ENDPOINT"
     echo "KNORA_USER=$KNORA_USER"
     echo "to set new BULK_ENDPOINT:"
     echo 'export KNORA_BULK_ENDPOINT="https://knora-nv.unil.ch/v1/resources/xmlimport/"'
     exit 1
+fi
+
+full_bulk=on
+if [ "$#" -eq 3 ] && [ $3 == "no_full_bulk" ] ; then
+    full_bulk=off
 fi
 
 echo "KNORA_BULK_ENDPOINT=$KNORA_BULK_ENDPOINT"
@@ -89,20 +94,23 @@ else
     echo "#### NO ERROR FOUND"
 fi
 
-echo ""
-echo "--> full bulk with ${count_entries} entries - file=$allbulk_file ($(date))"
-echo ${BULK_FOOTER} >> $allbulk_file
-cmd="curl -k -s -u ${KNORA_USER} -X POST -d @$allbulk_file ${KNORA_BULK_ENDPOINT}http%3A%2F%2Frdfh.ch%2Fprojects%2F0001"
-echo " CMD: $cmd"
-response=$($cmd)
-if [[ $response =~ .*createdResources.* ]] ; then
-  echo "    ### SUCCESS full bulk import: $allbulk_file"
+if [ $full_bulk == "on" ] ; then
+    echo ""
+    echo "--> full bulk with ${count_entries} entries - file=$allbulk_file ($(date))"
+    echo ${BULK_FOOTER} >> $allbulk_file
+    cmd="curl -k -s -u ${KNORA_USER} -X POST -d @$allbulk_file ${KNORA_BULK_ENDPOINT}http%3A%2F%2Frdfh.ch%2Fprojects%2F0001"
+    echo " CMD: $cmd"
+    response=$($cmd)
+    if [[ $response =~ .*createdResources.* ]] ; then
+    echo "    ### SUCCESS full bulk import: $allbulk_file"
+    else
+    echo ""
+    echo "    ### ERROR full bulk import: $allbulk_file"
+    echo "    $response"
+    fi
+    echo ""
+    echo "<-- all bulk file=$allbulk_file ($(date))"
 else
-  echo ""
-  echo "    ### ERROR full bulk import: $allbulk_file"
-  echo "    $response"
+    echo "Full bulk disable"
 fi
-echo ""
-echo "<-- all bulk file=$allbulk_file ($(date))"
-
 
